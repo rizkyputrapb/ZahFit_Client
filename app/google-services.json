@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:929278879657:android:e61ed969a263bdb41b86b8",
+        "mobilesdk_app_id": "1:929278879657:android:4dac873f020809cb1b86b8",
         "android_client_info": {
-          "package_name": "ZahFit_Fitness.v1"
+          "package_name": "com.example.zahfitclient"
         }
       },
       "oauth_client": [
