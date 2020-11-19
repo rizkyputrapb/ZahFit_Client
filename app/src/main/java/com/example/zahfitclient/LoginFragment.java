@@ -8,18 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.example.zahfitclient.databinding.FragmentLandingBinding;
+import com.example.zahfitclient.databinding.FragmentLoginBinding;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LandingFragment#newInstance} factory method to
+ * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LandingFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,9 +28,10 @@ public class LandingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    FragmentLandingBinding binding;
+    FragmentLoginBinding binding;
+    LoginViewModel viewModel;
 
-    public LandingFragment() {
+    public LoginFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class LandingFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LandingFragment.
+     * @return A new instance of fragment LoginFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LandingFragment newInstance(String param1, String param2) {
-        LandingFragment fragment = new LandingFragment();
+    public static LoginFragment newInstance(String param1, String param2) {
+        LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,27 +67,22 @@ public class LandingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_landing, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
+        viewModel = new LoginViewModel(getActivity().getApplication());
         Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.intro_bg);
-        binding.videoView.setVideoURI(uri);
-        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        binding.videoView2.setVideoURI(uri);
+        binding.videoView2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.setLooping(true);
             }
         });
-        binding.videoView.start();
+        binding.videoView2.start();
         View view = binding.getRoot();
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_landingFragment_to_loginFragment);
-            }
-        });
-        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_landingFragment_to_registerFragment);
+                viewModel.SignIn(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString());
             }
         });
         return view;
