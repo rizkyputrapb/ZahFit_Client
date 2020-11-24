@@ -2,6 +2,7 @@ package com.example.zahfitclient.viewmodel;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
 public class AuthAppRepository {
@@ -38,6 +40,7 @@ public class AuthAppRepository {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), new OnCompleteListener<AuthResult>() {
@@ -55,6 +58,7 @@ public class AuthAppRepository {
                 });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void register(String email, String password, String username, String name, int age, int height, int weight) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(application.getMainExecutor(), new OnCompleteListener<AuthResult>() {
