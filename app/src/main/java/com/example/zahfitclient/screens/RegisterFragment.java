@@ -1,4 +1,4 @@
-package com.example.zahfitclient;
+package com.example.zahfitclient.screens;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.zahfitclient.R;
 import com.example.zahfitclient.databinding.RegisterFragmentBinding;
+import com.example.zahfitclient.viewmodel.RegisterViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

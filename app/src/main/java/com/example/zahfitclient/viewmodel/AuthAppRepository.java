@@ -1,4 +1,4 @@
-package com.example.zahfitclient;
+package com.example.zahfitclient.viewmodel;
 
 import android.app.Application;
 import android.content.Intent;

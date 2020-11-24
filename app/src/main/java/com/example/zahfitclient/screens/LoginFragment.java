@@ -1,4 +1,4 @@
-package com.example.zahfitclient;
+package com.example.zahfitclient.screens;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.example.zahfitclient.R;
 import com.example.zahfitclient.databinding.FragmentLoginBinding;
+import com.example.zahfitclient.viewmodel.LoginViewModel;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;

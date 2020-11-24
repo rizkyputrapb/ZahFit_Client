@@ -1,4 +1,4 @@
-package com.example.zahfitclient;
+package com.example.zahfitclient.viewmodel;
 
 import android.app.Application;
 
@@ -8,19 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RegisterViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+public class LoginViewModel extends ViewModel {
     private AuthAppRepository authAppRepository;
     private MutableLiveData<FirebaseUser> userLiveData;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public LoginViewModel(@NonNull Application application) {
         super();
         authAppRepository = new AuthAppRepository(application);
         userLiveData = authAppRepository.getUserLiveData();
     }
 
-    public void register(String email, String password, String username, String name, int age, int height, int weight) {
-        authAppRepository.register(email, password, username, name, age, height, weight);
+    public void SignIn(String email, String password) {
+        authAppRepository.login(email, password);
     }
 
     public MutableLiveData<FirebaseUser> getUserLiveData() {
