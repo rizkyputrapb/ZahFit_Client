@@ -3,9 +3,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     dependencies {
         def nav_version = "2.3.1"
+        classpath 'com.squareup.picasso:picasso:2.6.0-SNAPSHOT'
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'com.google.gms:google-services:4.3.4'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
