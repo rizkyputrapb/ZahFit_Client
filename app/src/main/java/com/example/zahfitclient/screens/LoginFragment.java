@@ -1,17 +1,30 @@
 package com.example.zahfitclient.screens;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.example.zahfitclient.MainActivity;
 import com.example.zahfitclient.R;
+import com.example.zahfitclient.UserMainActivity;
 import com.example.zahfitclient.databinding.FragmentLoginBinding;
+import com.example.zahfitclient.model.User;
 import com.example.zahfitclient.viewmodel.LoginViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -32,6 +45,8 @@ public class LoginFragment extends Fragment {
     private String mParam2;
     FragmentLoginBinding binding;
     LoginViewModel viewModel;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -62,6 +77,8 @@ public class LoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        this.mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -84,7 +101,22 @@ public class LoginFragment extends Fragment {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.SignIn(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString());
+                String email = binding.txtEmail.getText().toString();
+                String password = binding.txtPassword.getText().toString();
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Log.w("LoginActivity", "signInWithEmail:success", task.getException());
+                                    startActivity(new Intent(getContext(), UserMainActivity.class));
+                                    getActivity().finish();
+                                } else {
+                                    Log.w("LoginActivity", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getActivity().getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
         return view;

@@ -107,8 +107,5 @@
 
     <data>
 
-        <variable
-            name="loginviewmodel"
-            type="com.example.zahfitclient.viewmodel.LoginViewModel" />
     </data>
 </layout>
