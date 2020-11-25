@@ -40,41 +40,6 @@ public class AuthAppRepository {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
-    public void login(String email, String password) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(application.getMainExecutor(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-//                            userLiveData.postValue(firebaseAuth.getCurrentUser());
-                            user = new User(email);
-                            Log.w("LoginActivity", "signInWithEmail:success", task.getException());
-                        } else {
-                            Log.w("LoginActivity", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.P)
-    public void register(String email, String password, String username, String name, int age, int height, int weight) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(application.getMainExecutor(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-//                            userLiveData.postValue(firebaseAuth.getCurrentUser());
-                            onAuthSuccess(task.getResult().getUser(), username, name, age, height, weight);
-                            Log.w("RegisterActivity", "Register Success " + firebaseAuth.getCurrentUser().getEmail());
-                        } else {
-                            Toast.makeText(application.getApplicationContext(), "Registration Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
     public void logOut() {
         firebaseAuth.signOut();
         loggedOutLiveData.postValue(true);
@@ -86,20 +51,5 @@ public class AuthAppRepository {
 
     public MutableLiveData<Boolean> getLoggedOutLiveData() {
         return loggedOutLiveData;
-    }
-
-    private void onAuthSuccess(FirebaseUser user, String username, String name, int age, int height, int weight) {
-        // membuat User baru
-        writeNewUser(user.getUid(), user.getEmail(), username, name, age, height, weight);
-
-//        // Go to MainActivity
-//        startActivity(new Intent(RegisterActivity.this, UserActivity.class));
-//        finish();
-    }
-
-    private void writeNewUser(String userId, String email, String username, String name, int age, int height, int weight) {
-        user = new User(email, username, name, age, height, weight);
-
-        mDatabase.child("users").child(userId).setValue(user);
     }
 }

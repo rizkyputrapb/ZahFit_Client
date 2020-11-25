@@ -11,12 +11,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.zahfitclient.MainActivity;
 import com.example.zahfitclient.R;
 import com.example.zahfitclient.UserMainActivity;
 import com.example.zahfitclient.databinding.FragmentLoginBinding;
-import com.example.zahfitclient.model.User;
-import com.example.zahfitclient.viewmodel.LoginViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,9 +41,7 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     FragmentLoginBinding binding;
-    LoginViewModel viewModel;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -78,7 +73,6 @@ public class LoginFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         this.firebaseAuth = FirebaseAuth.getInstance();
-        this.mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -87,7 +81,6 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        viewModel = new LoginViewModel(getActivity().getApplication());
         Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.intro_bg);
         binding.videoView2.setVideoURI(uri);
         binding.videoView2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
