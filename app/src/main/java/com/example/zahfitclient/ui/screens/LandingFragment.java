@@ -1,4 +1,4 @@
-package com.example.zahfitclient.screens;
+package com.example.zahfitclient.ui.screens;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
