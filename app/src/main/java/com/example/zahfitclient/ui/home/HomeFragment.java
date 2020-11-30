@@ -13,6 +13,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +74,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = binding.rvPlan;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mDatabase.child("exercise_plan").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("exercise_plan").orderByChild("level_name").equalTo("Easy").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();
@@ -80,8 +83,24 @@ public class HomeFragment extends Fragment {
                     planList.add(plan);
                 }
                 recyclerView.setLayoutManager(layoutManager);
-                PlanAdapter adapter = new PlanAdapter(planList);
+                PlanAdapter adapter = new PlanAdapter(new OnItemPlanListener() {
+                    @Override
+                    public void OnPlanClicked(Plan plan) {
+                        homeViewModel.onPlanClicked(plan);
+                    }
+                });
                 recyclerView.setAdapter(adapter);
+                adapter.setPlanList(planList);
+                homeViewModel.navigateToWorkout().observe(getViewLifecycleOwner(), new Observer<Plan>() {
+                    @Override
+                    public void onChanged(Plan plan) {
+                        if (plan != null) {
+                            NavDirections action = HomeFragmentDirections.actionNavHomeToWorkoutPlanFragment(plan);
+                            Navigation.findNavController(requireView()).navigate(action);
+                            homeViewModel.onWorkoutNavigated();
+                        }
+                    }
+                });
                 adapter.notifyDataSetChanged();
             }
 

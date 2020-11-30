@@ -5,12 +5,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Plan implements Parcelable {
-    String plan_name, level_id, type_id, personal_trainer_id, uri;
+    String plan_name, level_name, type_name, personal_trainer_id, uri;
 
     protected Plan(Parcel in) {
         plan_name = in.readString();
-        level_id = in.readString();
-        type_id = in.readString();
+        level_name
+                = in.readString();
+        type_name = in.readString();
         personal_trainer_id = in.readString();
         uri = in.readString();
     }
@@ -38,18 +39,24 @@ public class Plan implements Parcelable {
     public Plan() {
     }
 
-    public Plan(String plan_name, String level_id, String type_id, String personal_trainer_id, String uri) {
+    public Plan(String plan_name, String level_name
+            , String type_name, String personal_trainer_id, String uri) {
         this.plan_name = plan_name;
-        this.level_id = level_id;
-        this.type_id = type_id;
+        this.level_name
+                = level_name
+        ;
+        this.type_name = type_name;
         this.personal_trainer_id = personal_trainer_id;
         this.uri = uri;
     }
 
-    public Plan(String plan_name, String level_id, String type_id, String personal_trainer_id) {
+    public Plan(String plan_name, String level_name
+            , String type_name, String personal_trainer_id) {
         this.plan_name = plan_name;
-        this.level_id = level_id;
-        this.type_id = type_id;
+        this.level_name
+                = level_name
+        ;
+        this.type_name = type_name;
         this.personal_trainer_id = personal_trainer_id;
     }
 
@@ -57,20 +64,26 @@ public class Plan implements Parcelable {
         return plan_name;
     }
 
-    public String getLevel_id() {
-        return level_id;
+    public String getLevel_name
+            () {
+        return level_name
+                ;
     }
 
-    public void setLevel_id(String level_id) {
-        this.level_id = level_id;
+    public void setLevel_name
+            (String level_name
+            ) {
+        this.level_name
+                = level_name
+        ;
     }
 
-    public String getType_id() {
-        return type_id;
+    public String getType_name() {
+        return type_name;
     }
 
-    public void setType_id(String type_id) {
-        this.type_id = type_id;
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
     }
 
     public String getPersonal_trainer_id() {
@@ -93,8 +106,9 @@ public class Plan implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(plan_name);
-        parcel.writeString(level_id);
-        parcel.writeString(type_id);
+        parcel.writeString(level_name
+        );
+        parcel.writeString(type_name);
         parcel.writeString(personal_trainer_id);
         parcel.writeString(uri);
     }

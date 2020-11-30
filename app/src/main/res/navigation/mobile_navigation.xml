@@ -9,11 +9,24 @@
         android:id="@+id/nav_home"
         android:name="com.example.zahfitclient.ui.home.HomeFragment"
         android:label="@string/menu_workout"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_workoutPlanFragment"
+            app:destination="@id/workoutPlanFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.zahfitclient.ui.gallery.GalleryFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/workoutPlanFragment"
+        android:name="com.example.zahfitclient.ui.workoutplan.WorkoutPlanFragment"
+        android:label="workout_plan_fragment"
+        tools:layout="@layout/workout_plan_fragment" >
+        <argument
+            android:name="Plan"
+            app:argType="com.example.zahfitclient.model.Plan" />
+    </fragment>
 </navigation>

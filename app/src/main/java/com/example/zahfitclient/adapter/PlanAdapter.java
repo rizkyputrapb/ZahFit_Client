@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.zahfitclient.databinding.ItemPlanBinding;
 import com.example.zahfitclient.model.Plan;
+import com.example.zahfitclient.ui.home.OnItemPlanListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,8 +20,13 @@ import androidx.annotation.NonNull;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private List<Plan> planList = new ArrayList<>();
+    private OnItemPlanListener itemPlanListener;
 
     public PlanAdapter() {
+    }
+
+    public PlanAdapter(OnItemPlanListener itemPlanListener) {
+        this.itemPlanListener = itemPlanListener;
     }
 
     public PlanAdapter(List<Plan> planList) {
@@ -46,7 +52,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
         Plan plan = planList.get(position);
-        holder.bind(plan);
+        holder.bind(plan, itemPlanListener);
     }
 
     @Override
@@ -66,9 +72,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             this.binding = binding;
         }
 
-        public void bind(Plan plan) {
+        public void bind(Plan plan, OnItemPlanListener itemPlanListener) {
             Glide.with(binding.getRoot().getContext()).load(plan.getUri()).into(binding.imageView3);
             binding.setPlan(plan);
+            binding.setClicklistener(itemPlanListener);
             binding.executePendingBindings();
         }
     }

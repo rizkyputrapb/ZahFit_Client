@@ -32,4 +32,18 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<Plan>> listLiveData() {
         return listMutableLiveData;
     }
+
+    private MutableLiveData<Plan> _navigateToWorkout = new MutableLiveData<>();
+
+    public LiveData<Plan> navigateToWorkout() {
+        return _navigateToWorkout;
+    }
+
+    public void onPlanClicked(Plan plan) {
+        _navigateToWorkout.setValue(plan);
+    }
+
+    public void onWorkoutNavigated() {
+        _navigateToWorkout.setValue(null);
+    }
 }
