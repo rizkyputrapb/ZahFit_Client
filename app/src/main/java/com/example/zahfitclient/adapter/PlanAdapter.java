@@ -1,22 +1,19 @@
 package com.example.zahfitclient.adapter;
 
-import android.content.ClipData;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.zahfitclient.databinding.ItemPlanBinding;
 import com.example.zahfitclient.model.Plan;
 import com.example.zahfitclient.ui.home.OnItemPlanListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private List<Plan> planList = new ArrayList<>();
@@ -44,6 +41,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i("DEBUG MENU", "onCreateViewHolder");
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemPlanBinding binding = ItemPlanBinding.inflate(layoutInflater, parent, false);
         return new PlanViewHolder(binding);
@@ -51,6 +49,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
+        Log.i("DEBUG MENU", "onBindViewHolder");
         Plan plan = planList.get(position);
         holder.bind(plan, itemPlanListener);
     }

@@ -5,15 +5,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Plan implements Parcelable {
-    String plan_name, level_name, type_name, personal_trainer_id, uri;
+    String plan_key, plan_name, level_name, type_name, personal_trainer_id, uri;
 
     protected Plan(Parcel in) {
+        plan_key = in.readString();
         plan_name = in.readString();
-        level_name
-                = in.readString();
+        level_name = in.readString();
         type_name = in.readString();
         personal_trainer_id = in.readString();
         uri = in.readString();
+    }
+
+    public String getPlan_key() {
+        return plan_key;
+    }
+
+    public void setPlan_key(String plan_key) {
+        this.plan_key = plan_key;
     }
 
     public static final Creator<Plan> CREATOR = new Creator<Plan>() {
@@ -105,9 +113,9 @@ public class Plan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(plan_key);
         parcel.writeString(plan_name);
-        parcel.writeString(level_name
-        );
+        parcel.writeString(level_name);
         parcel.writeString(type_name);
         parcel.writeString(personal_trainer_id);
         parcel.writeString(uri);

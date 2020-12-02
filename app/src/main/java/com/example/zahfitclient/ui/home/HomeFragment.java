@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     private DatabaseReference mDatabase;
-    private FirebaseUser user;
     List<Plan> planList;
 
     public HomeFragment() {
@@ -50,7 +49,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -80,6 +78,7 @@ public class HomeFragment extends Fragment {
                 planList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Plan plan = snapshot.getValue(Plan.class);
+                    plan.setPlan_key(snapshot.getKey());
                     planList.add(plan);
                 }
                 recyclerView.setLayoutManager(layoutManager);
