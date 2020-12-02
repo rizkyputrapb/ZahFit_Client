@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,10 +71,14 @@ public class WorkoutPlanFragment extends Fragment {
         RecyclerView recyclerView = binding.workoutRV;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
         mDatabase.child("exercise_workout").child("data").orderByChild("plan_id").equalTo(plan.getPlan_key()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 workoutList = new ArrayList<>();
+                WorkoutAdapter adapter = new WorkoutAdapter();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String workout_id = snapshot.child("workout_id").getValue(String.class);
                     mDatabase.child("workout").child(workout_id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,6 +88,9 @@ public class WorkoutPlanFragment extends Fragment {
                             workout.setWorkout_id(workout_id);
                             Log.d("GET", "workout_name: " + workout.getWorkout_name() + " " + workout.getWorkout_id());
                             workoutList.add(workout);
+                            adapter.setWorkoutList(workoutList);
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -91,10 +99,6 @@ public class WorkoutPlanFragment extends Fragment {
                         }
                     });
                 }
-                WorkoutAdapter adapter = new WorkoutAdapter();
-                recyclerView.setAdapter(adapter);
-                adapter.setWorkoutList(workoutList);
-                adapter.notifyDataSetChanged();
             }
 
             @Override
