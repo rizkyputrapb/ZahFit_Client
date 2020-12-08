@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.zahfitclient.databinding.ItemPlanBinding;
 import com.example.zahfitclient.model.Plan;
-import com.example.zahfitclient.ui.home.OnItemPlanListener;
+import com.example.zahfitclient.ui.abs.OnItemPlanListener;
 
 import java.util.ArrayList;
 import java.util.List;

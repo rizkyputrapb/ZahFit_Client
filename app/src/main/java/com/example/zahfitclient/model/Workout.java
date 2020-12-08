@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Workout implements Parcelable {
-    String workout_name, workout_id;
+    String workout_name, workout_id, count, time;
 
     public Workout() {
     }
@@ -21,6 +21,8 @@ public class Workout implements Parcelable {
     protected Workout(Parcel in) {
         workout_name = in.readString();
         workout_id = in.readString();
+        count = in.readString();
+        time = in.readString();
     }
 
     public static final Creator<Workout> CREATOR = new Creator<Workout>() {
@@ -34,6 +36,22 @@ public class Workout implements Parcelable {
             return new Workout[size];
         }
     };
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getWorkout_name() {
         return workout_name;
@@ -60,5 +78,7 @@ public class Workout implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(workout_name);
         parcel.writeString(workout_id);
+        parcel.writeString(count);
+        parcel.writeString(time);
     }
 }

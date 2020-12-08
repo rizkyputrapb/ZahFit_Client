@@ -26,7 +26,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="workout_label" >Beginner\u0027s Workouts</string>
+    <string name="workout_beginner" >Beginner</string>
 
     <string name="menu_workout">Workouts</string>
     <string name="menu_settings">Settings</string>

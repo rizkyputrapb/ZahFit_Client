@@ -106,7 +106,7 @@
     <data>
         <variable
             name="clicklistener"
-            type="com.example.zahfitclient.ui.home.OnItemPlanListener" />
+            type="com.example.zahfitclient.ui.abs.OnItemPlanListener" />
 
         <variable
             name="Plan"

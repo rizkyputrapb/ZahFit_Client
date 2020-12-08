@@ -1,8 +1,6 @@
 package com.example.zahfitclient.ui.workoutplan;
 
-import com.example.zahfitclient.model.Plan;
 import com.example.zahfitclient.model.Workout;
-import com.example.zahfitclient.ui.home.HomeViewModel;
 
 import java.util.List;
 

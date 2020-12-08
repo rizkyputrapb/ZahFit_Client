@@ -38,6 +38,7 @@ public class WorkoutPlanFragment extends Fragment {
     private DatabaseReference mDatabase;
     Plan plan;
     List<Workout> workoutList;
+    Workout workout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,10 +82,14 @@ public class WorkoutPlanFragment extends Fragment {
                 WorkoutAdapter adapter = new WorkoutAdapter();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String workout_id = snapshot.child("workout_id").getValue(String.class);
+                    String count = snapshot.child("count").getValue(String.class);
+                    String time = snapshot.child("time").getValue(String.class);
                     mDatabase.child("workout").child(workout_id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Workout workout = snapshot.getValue(Workout.class);
+                            workout = snapshot.getValue(Workout.class);
+                            workout.setCount(count);
+                            workout.setTime(time);
                             workout.setWorkout_id(workout_id);
                             Log.d("GET", "workout_name: " + workout.getWorkout_name() + " " + workout.getWorkout_id());
                             workoutList.add(workout);
