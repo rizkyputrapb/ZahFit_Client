@@ -43,15 +43,6 @@ public class RegisterFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.register_fragment, container, false);
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.mDatabase = FirebaseDatabase.getInstance().getReference();
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.intro_bg);
-        binding.videoView3.setVideoURI(uri);
-        binding.videoView3.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
-            }
-        });
-        binding.videoView3.start();
         View view = binding.getRoot();
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

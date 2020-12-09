@@ -67,17 +67,7 @@ public class LandingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_landing, container, false);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.intro_bg);
-        binding.videoView.setVideoURI(uri);
-        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
-            }
-        });
-        binding.videoView.start();
         View view = binding.getRoot();
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

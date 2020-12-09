@@ -61,6 +61,9 @@ public class AbsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupRvBeginner();
+        setupRvMedium();
+        setupRvHard();
+        setupRvBodyB();
         // TODO: Use the ViewModel
     }
 
@@ -69,6 +72,132 @@ public class AbsFragment extends Fragment {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("abs_easy").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                planList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Plan plan = snapshot.getValue(Plan.class);
+                    plan.setPlan_key(snapshot.getKey());
+                    planList.add(plan);
+                }
+                recyclerView.setLayoutManager(layoutManager);
+                PlanAdapter adapter = new PlanAdapter(new OnItemPlanListener() {
+                    @Override
+                    public void OnPlanClicked(Plan plan) {
+                        mViewModel.onPlanClicked(plan);
+                    }
+                });
+                recyclerView.setAdapter(adapter);
+                adapter.setPlanList(planList);
+                mViewModel.navigateToWorkout().observe(getViewLifecycleOwner(), new Observer<Plan>() {
+                    @Override
+                    public void onChanged(Plan plan) {
+                        if (plan != null) {
+                            NavDirections action = HomeFragmentDirections.actionNavHomeToWorkoutPlanFragment(plan);
+                            Navigation.findNavController(requireView()).navigate(action);
+                            mViewModel.onWorkoutNavigated();
+                        }
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setupRvMedium() {
+        RecyclerView recyclerView = binding.rvMediumPlan;
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("abs_medium").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                planList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Plan plan = snapshot.getValue(Plan.class);
+                    plan.setPlan_key(snapshot.getKey());
+                    planList.add(plan);
+                }
+                recyclerView.setLayoutManager(layoutManager);
+                PlanAdapter adapter = new PlanAdapter(new OnItemPlanListener() {
+                    @Override
+                    public void OnPlanClicked(Plan plan) {
+                        mViewModel.onPlanClicked(plan);
+                    }
+                });
+                recyclerView.setAdapter(adapter);
+                adapter.setPlanList(planList);
+                mViewModel.navigateToWorkout().observe(getViewLifecycleOwner(), new Observer<Plan>() {
+                    @Override
+                    public void onChanged(Plan plan) {
+                        if (plan != null) {
+                            NavDirections action = HomeFragmentDirections.actionNavHomeToWorkoutPlanFragment(plan);
+                            Navigation.findNavController(requireView()).navigate(action);
+                            mViewModel.onWorkoutNavigated();
+                        }
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setupRvHard() {
+        RecyclerView recyclerView = binding.rvHardPlan;
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("abs_hard").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                planList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Plan plan = snapshot.getValue(Plan.class);
+                    plan.setPlan_key(snapshot.getKey());
+                    planList.add(plan);
+                }
+                recyclerView.setLayoutManager(layoutManager);
+                PlanAdapter adapter = new PlanAdapter(new OnItemPlanListener() {
+                    @Override
+                    public void OnPlanClicked(Plan plan) {
+                        mViewModel.onPlanClicked(plan);
+                    }
+                });
+                recyclerView.setAdapter(adapter);
+                adapter.setPlanList(planList);
+                mViewModel.navigateToWorkout().observe(getViewLifecycleOwner(), new Observer<Plan>() {
+                    @Override
+                    public void onChanged(Plan plan) {
+                        if (plan != null) {
+                            NavDirections action = HomeFragmentDirections.actionNavHomeToWorkoutPlanFragment(plan);
+                            Navigation.findNavController(requireView()).navigate(action);
+                            mViewModel.onWorkoutNavigated();
+                        }
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setupRvBodyB() {
+        RecyclerView recyclerView = binding.rvBodybPlan;
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("abs_bodyb").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();

@@ -79,15 +79,6 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.intro_bg);
-        binding.videoView2.setVideoURI(uri);
-        binding.videoView2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
-            }
-        });
-        binding.videoView2.start();
         View view = binding.getRoot();
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
