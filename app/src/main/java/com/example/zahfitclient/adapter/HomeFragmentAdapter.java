@@ -2,6 +2,7 @@ package com.example.zahfitclient.adapter;
 
 import com.example.zahfitclient.ui.abs.AbsFragment;
 import com.example.zahfitclient.ui.arm.ArmFragment;
+import com.example.zahfitclient.ui.fullbody.FullbodyFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,12 +18,16 @@ public class HomeFragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         AbsFragment absFragment = new AbsFragment();
         ArmFragment armFragment = new ArmFragment();
+        FullbodyFragment fullbodyFragment = new FullbodyFragment();
         switch (position) {
             case 0:
                 return absFragment;
 
             case 1:
                 return armFragment;
+
+            case 2:
+                return fullbodyFragment;
 
             default:
                 return absFragment;
