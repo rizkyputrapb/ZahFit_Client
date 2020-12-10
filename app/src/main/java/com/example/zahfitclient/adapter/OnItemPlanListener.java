@@ -1,4 +1,4 @@
-package com.example.zahfitclient.ui.abs;
+package com.example.zahfitclient.adapter;
 
 import com.example.zahfitclient.model.Plan;
 

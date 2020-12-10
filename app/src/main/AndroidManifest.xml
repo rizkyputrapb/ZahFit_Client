@@ -11,8 +11,7 @@
         android:theme="@style/Theme.ZahFitClient" >
         <activity
             android:name=".UserMainActivity"
-            android:label="@string/title_activity_user_main"
-            android:theme="@style/Theme.ZahFitClient.NoActionBar" >
+            android:label="@string/title_activity_user_main">
         </activity>
         <activity android:name=".MainActivity" >
             <intent-filter>

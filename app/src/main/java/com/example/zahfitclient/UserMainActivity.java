@@ -41,11 +41,11 @@ public class UserMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityUserMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_user_main);
+        setContentView(R.layout.activity_user_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         init();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
