@@ -20,10 +20,19 @@
         android:id="@+id/loginFragment"
         android:name="com.example.zahfitclient.ui.screens.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_mobile_navigation"
+            app:destination="@id/mobile_navigation" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.zahfitclient.ui.screens.RegisterFragment"
         android:label="register_fragment"
-        tools:layout="@layout/register_fragment" />
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_mobile_navigation"
+            app:destination="@id/mobile_navigation" />
+    </fragment>
+    <include app:graph="@navigation/mobile_navigation" />
 </navigation>
