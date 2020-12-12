@@ -2,7 +2,9 @@ package com.example.zahfitclient.adapter;
 
 import com.example.zahfitclient.ui.abs.AbsFragment;
 import com.example.zahfitclient.ui.arm.ArmFragment;
+import com.example.zahfitclient.ui.butt.ButtFragment;
 import com.example.zahfitclient.ui.fullbody.FullbodyFragment;
+import com.example.zahfitclient.ui.legs.LegsFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,8 @@ public class HomeFragmentAdapter extends FragmentStateAdapter {
         AbsFragment absFragment = new AbsFragment();
         ArmFragment armFragment = new ArmFragment();
         FullbodyFragment fullbodyFragment = new FullbodyFragment();
+        LegsFragment legsFragment = new LegsFragment();
+        ButtFragment buttFragment = new ButtFragment();
         switch (position) {
             case 0:
                 return absFragment;
@@ -28,6 +32,12 @@ public class HomeFragmentAdapter extends FragmentStateAdapter {
 
             case 2:
                 return fullbodyFragment;
+
+            case 3:
+                return legsFragment;
+
+            case 4:
+                return buttFragment;
 
             default:
                 return absFragment;

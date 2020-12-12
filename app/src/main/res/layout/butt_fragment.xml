@@ -3,98 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-<variable
-    name="viewmodel"
-    type="com.example.zahfitclient.ui.legs.LegsViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout6"
+        android:id="@+id/frameLayout7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.legs.LegsFragment">
+        tools:context=".ui.butt.ButtFragment">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/scrollView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <View
-                    android:id="@+id/view14"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#C6000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvLegsHard" />
-
                 <TextView
-                    android:id="@+id/textView26"
+                    android:id="@+id/textView33"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/workout_bodyb"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view17" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/workout_hard"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view13" />
+                    app:layout_constraintTop_toBottomOf="@+id/view16" />
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/textView29"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/workout_bodyb"
+                    android:text="@string/workout_intermediate"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view14" />
-
-                <View
-                    android:id="@+id/view12"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#C6000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvLegsBeginner" />
-
-                <View
-                    android:id="@+id/view13"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#C6000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvLegsIntermediate" />
+                    app:layout_constraintTop_toBottomOf="@+id/view15" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/textView25"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -107,22 +81,55 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView24"
+                <View
+                    android:id="@+id/view15"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="@string/workout_intermediate"
-                    android:textSize="24sp"
+                    android:background="#C6000000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view12" />
+                    app:layout_constraintTop_toBottomOf="@+id/rvButtBeginner" />
+
+                <View
+                    android:id="@+id/view16"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#C6000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvButtIntermediate" />
+
+                <View
+                    android:id="@+id/view17"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#C6000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvButtHard" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvLegsBeginner"
+                    android:id="@+id/rvButtBeginner"
+                    android:layout_width="0dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvButtIntermediate"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginStart="8dp"
@@ -130,42 +137,39 @@
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvLegsIntermediate"
-                    android:layout_width="0dp"
+                    android:id="@+id/rvButtHard"
+                    android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvLegsHard"
-                    android:layout_width="0dp"
+                    android:id="@+id/rvButtBodyB"
+                    android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvLegsBodyB"
-                    android:layout_width="0dp"
-                    android:layout_height="230dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView33" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.zahfitclient.ui.butt.ButtViewModel" />
+    </data>
 </layout>
