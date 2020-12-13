@@ -33,5 +33,18 @@
         android:id="@+id/nav_settings"
         android:name="com.example.zahfitclient.ui.settings.SettingsFragment"
         android:label="@string/action_settings"
-        tools:layout="@layout/settings_fragment" />
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_nav_settings_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.zahfitclient.ui.editprofile.EditProfileFragment"
+        android:label="@string/settings_editprofile"
+        tools:layout="@layout/edit_profile_fragment">
+        <action
+            android:id="@+id/action_editProfileFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

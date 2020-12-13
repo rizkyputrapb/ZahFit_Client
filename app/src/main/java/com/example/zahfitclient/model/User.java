@@ -4,8 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
-    String email, name, username;
+    String email, name, username, img;
     int age, height, weight;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public User() {
     }
@@ -23,10 +31,21 @@ public class User implements Parcelable {
         this.weight = weight;
     }
 
+    public User(String email, String username, String name, int age, int height, int weight, String img) {
+        this.email = email;
+        this.name = name;
+        this.username = username;
+        this.age = age;
+        this.img = img;
+        this.height = height;
+        this.weight = weight;
+    }
+
     protected User(Parcel in) {
         email = in.readString();
         name = in.readString();
         username = in.readString();
+        img = in.readString();
         age = in.readInt();
         height = in.readInt();
         weight = in.readInt();
@@ -102,6 +121,7 @@ public class User implements Parcelable {
         parcel.writeString(email);
         parcel.writeString(name);
         parcel.writeString(username);
+        parcel.writeString(img);
         parcel.writeInt(age);
         parcel.writeInt(height);
         parcel.writeInt(weight);

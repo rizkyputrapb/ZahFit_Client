@@ -1,14 +1,21 @@
 package com.example.zahfitclient;
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.zahfitclient.databinding.ActivityUserMainBinding;
 import com.example.zahfitclient.databinding.NavHeaderMainBinding;
 import com.example.zahfitclient.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -19,8 +26,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -56,6 +66,7 @@ public class UserMainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     @Override
@@ -69,15 +80,35 @@ public class UserMainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         TextView navusername = (TextView) headerView.findViewById(R.id.txt_usernameNAV);
         TextView navuseremail = (TextView) headerView.findViewById(R.id.txt_useremailNAV);
+        ImageView imageView = headerView.findViewById(R.id.imageView);
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String getUserID = user.getUid();
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabase.child("user").child(getUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usermodel = snapshot.getValue(User.class);
                 navusername.setText(usermodel.getUsername());
                 navuseremail.setText(usermodel.getEmail());
+                String img = usermodel.getImg();
+                if (img==null) {
+                    img = " ";
+                }
+                mStorageRef.child(img).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(getApplicationContext()).load(uri).into(imageView);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String uri = "@drawable/ic_baseline_person_pin_24";  // where myresource (without the extension) is the file
+                        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                        Drawable res = getDrawable(imageResource);
+                        imageView.setImageDrawable(res);
+                    }
+                });
             }
 
             @Override
