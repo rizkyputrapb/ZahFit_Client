@@ -74,48 +74,5 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        setupRvPlan();
     }
-
-//    private void setupRvPlan() {
-//        RecyclerView recyclerView = binding.rvPlan;
-//        LinearLayoutManager layoutManager
-//                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        mDatabase.child("exercise_plan").orderByChild("level_name").equalTo("Easy").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                planList = new ArrayList<>();
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Plan plan = snapshot.getValue(Plan.class);
-//                    plan.setPlan_key(snapshot.getKey());
-//                    planList.add(plan);
-//                }
-//                recyclerView.setLayoutManager(layoutManager);
-//                PlanAdapter adapter = new PlanAdapter(new OnItemPlanListener() {
-//                    @Override
-//                    public void OnPlanClicked(Plan plan) {
-//                        homeViewModel.onPlanClicked(plan);
-//                    }
-//                });
-//                recyclerView.setAdapter(adapter);
-//                adapter.setPlanList(planList);
-//                homeViewModel.navigateToWorkout().observe(getViewLifecycleOwner(), new Observer<Plan>() {
-//                    @Override
-//                    public void onChanged(Plan plan) {
-//                        if (plan != null) {
-//                            NavDirections action = HomeFragmentDirections.actionNavHomeToWorkoutPlanFragment(plan);
-//                            Navigation.findNavController(requireView()).navigate(action);
-//                            homeViewModel.onWorkoutNavigated();
-//                        }
-//                    }
-//                });
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
 }

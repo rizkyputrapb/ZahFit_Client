@@ -26,12 +26,15 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="workout_beginner" >Beginner</string>
-    <string name="workout_intermediate" >Intermediate</string>
-    <string name="workout_hard" >Hard</string>
-    <string name="workout_bodyb" >Body Builder</string>
-    <string name="settings_editprofile" >Edit Profile</string>
-    <string name="settings_logout" >Log Out</string>
+    <string name="workout_beginner">Beginner</string>
+    <string name="workout_intermediate">Intermediate</string>
+    <string name="workout_hard">Hard</string>
+    <string name="workout_bodyb">Body Builder</string>
+    <string name="settings_editprofile">Edit Profile</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="workout_start">Start Workout</string>
+    <string name="workout_finish">Finish Workout</string>
+    <string name="history_label">Finished Workouts</string>
 
     <string name="menu_workout">Workouts</string>
     <string name="menu_history">History</string>

@@ -70,7 +70,7 @@ public class LegsFragment extends Fragment {
         RecyclerView recyclerView = binding.rvLegsBeginner;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("legs_easy").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("lowerbody_easy").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();
@@ -112,7 +112,7 @@ public class LegsFragment extends Fragment {
         RecyclerView recyclerView = binding.rvLegsIntermediate;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("legs_medium").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("lowerbody_medium").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();
@@ -154,7 +154,7 @@ public class LegsFragment extends Fragment {
         RecyclerView recyclerView = binding.rvLegsHard;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("legs_hard").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("lowerbody_hard").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();
@@ -196,7 +196,7 @@ public class LegsFragment extends Fragment {
         RecyclerView recyclerView = binding.rvLegsBodyB;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("legs_bodyb").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("exercise_plan").orderByChild("type_level").equalTo("lowerbody_bodyb").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planList = new ArrayList<>();

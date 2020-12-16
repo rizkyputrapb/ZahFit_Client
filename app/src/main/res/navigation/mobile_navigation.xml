@@ -28,6 +28,9 @@
         <argument
             android:name="Plan"
             app:argType="com.example.zahfitclient.model.Plan" />
+        <action
+            android:id="@+id/action_workoutPlanFragment_to_workoutstartFragment"
+            app:destination="@id/workoutstartFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_settings"
@@ -46,5 +49,14 @@
         <action
             android:id="@+id/action_editProfileFragment_to_nav_home"
             app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutstartFragment"
+        android:name="com.example.zahfitclient.ui.workoutstart.WorkoutstartFragment"
+        android:label="workoutstart_fragment"
+        tools:layout="@layout/workoutstart_fragment" >
+        <argument
+            android:name="Plan"
+            app:argType="com.example.zahfitclient.model.Plan" />
     </fragment>
 </navigation>

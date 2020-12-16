@@ -1,85 +1,103 @@
-package com.example.zahfitclient.ui.workoutplan;
+package com.example.zahfitclient.ui.workoutstart;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.example.zahfitclient.R;
+import com.example.zahfitclient.UserMainActivity;
 import com.example.zahfitclient.adapter.WorkoutAdapter;
-import com.example.zahfitclient.databinding.WorkoutPlanFragmentBinding;
+import com.example.zahfitclient.adapter.WorkoutstartAdapter;
+import com.example.zahfitclient.databinding.WorkoutstartFragmentBinding;
 import com.example.zahfitclient.model.Plan;
+import com.example.zahfitclient.model.PlanHistory;
 import com.example.zahfitclient.model.Workout;
+import com.example.zahfitclient.ui.workoutplan.WorkoutPlanFragmentArgs;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+public class WorkoutstartFragment extends Fragment {
 
-public class WorkoutPlanFragment extends Fragment {
-
-    private WorkoutPlanViewModel mViewModel;
-    private WorkoutPlanFragmentBinding binding;
+    private WorkoutstartViewModel mViewModel;
     private DatabaseReference mDatabase;
+    FirebaseUser user;
+    WorkoutstartFragmentBinding binding;
     Plan plan;
     List<Workout> workoutList;
     Workout workout;
+
+    public static WorkoutstartFragment newInstance() {
+        return new WorkoutstartFragment();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        WorkoutPlanViewModelFactory workoutPlanViewModelFactory = new WorkoutPlanViewModelFactory(workoutList);
-        mViewModel = new ViewModelProvider(this, workoutPlanViewModelFactory).get(WorkoutPlanViewModel.class);
-        binding = DataBindingUtil.inflate(inflater, R.layout.workout_plan_fragment, container, false);
+        WorkoutstartViewModelFactory workoutstartViewModelFactory = new WorkoutstartViewModelFactory(workoutList);
+        mViewModel = new ViewModelProvider(this, workoutstartViewModelFactory).get(WorkoutstartViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.workoutstart_fragment, container, false);
         binding.setViewmodel(mViewModel);
-        View view = binding.getRoot();
         assert getArguments() != null;
-        plan = WorkoutPlanFragmentArgs.fromBundle(getArguments()).getPlan();
+        plan = getArguments().getParcelable("plan");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(plan.getPlan_name());
-        Glide.with(binding.getRoot().getContext()).load(plan.getUri()).into(binding.imageView2);
-        binding.btnStartWorkout.setOnClickListener(new View.OnClickListener() {
+        binding.btnFinishWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("plan", plan);
-                Navigation.findNavController(view).navigate(R.id.action_workoutPlanFragment_to_workoutstartFragment, bundle);
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                String formattedDate = df.format(c);
+                mDatabase.child("history").child(user.getUid()).push().setValue(new PlanHistory(formattedDate, plan.getPlan_key(), plan.getPlan_name(), plan.getLevel_name(), plan.getType_name(), plan.getPersonal_trainer_id(), plan.getUri()));
+                Intent i = new Intent(getContext(), UserMainActivity.class);
+                startActivity(i);
             }
         });
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setPlan(plan);
         setupRvWorkout();
     }
 
-    public void setupRvWorkout() {
-        RecyclerView recyclerView = binding.workoutRV;
+    private void setupRvWorkout() {
+        RecyclerView recyclerView = binding.rvWorkoutDetails;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration itemDecoration = new
@@ -89,7 +107,7 @@ public class WorkoutPlanFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 workoutList = new ArrayList<>();
-                WorkoutAdapter adapter = new WorkoutAdapter();
+                WorkoutstartAdapter adapter = new WorkoutstartAdapter();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String workout_id = snapshot.child("workout_id").getValue(String.class);
                     String count = snapshot.child("count").getValue(String.class);
@@ -122,4 +140,5 @@ public class WorkoutPlanFragment extends Fragment {
             }
         });
     }
+
 }
