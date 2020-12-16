@@ -71,6 +71,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         }
 
         public void bind(Plan plan, OnItemPlanListener itemPlanListener) {
+            Log.i("URI", "uri img: " + plan.getUri());
             Glide.with(binding.getRoot().getContext()).load(plan.getUri()).into(binding.imageView3);
             binding.setPlan(plan);
             binding.setClicklistener(itemPlanListener);

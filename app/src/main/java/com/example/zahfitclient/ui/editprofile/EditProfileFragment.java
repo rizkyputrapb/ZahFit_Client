@@ -34,6 +34,7 @@ import com.example.zahfitclient.databinding.EditProfileFragmentBinding;
 import com.example.zahfitclient.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.base.Splitter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,14 +47,17 @@ import com.google.firebase.storage.UploadTask;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static android.app.Activity.RESULT_OK;
 
 public class EditProfileFragment extends Fragment {
 
     EditProfileFragmentBinding binding;
-    User usermodel;
+    Map<String, Object> usermodel;
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private Uri filePath;
@@ -100,20 +104,34 @@ public class EditProfileFragment extends Fragment {
         binding.btnConfirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                usermodel = new HashMap<>();
                 String email, name, username, img;
-                int age, height, weight;
-                email = binding.txtEditEmail.getText().toString();
                 name = binding.txtEditName.getText().toString();
+                email = binding.txtEditEmail.getText().toString();
                 username = binding.txtEditUsername.getText().toString();
+                if (!name.isEmpty()) {
+                    usermodel.put("name", name);
+                }
+                if (!email.isEmpty()) {
+                    usermodel.put("email", email);
+                }
+                if (!username.isEmpty()) {
+                    usermodel.put("username", username);
+                }
+                if (!binding.txtEditAge.getText().toString().isEmpty()) {
+                    usermodel.put("age", binding.txtEditAge.getText().toString());
+                }
+                if (!binding.txtEditWeight.getText().toString().isEmpty()) {
+                    usermodel.put("weight", binding.txtEditWeight.getText().toString());
+                }
+                if (!binding.txtEditHeight.getText().toString().isEmpty()) {
+                    usermodel.put("height", binding.txtEditHeight.getText().toString());
+                }
                 img = user.getUid() + ".png";
-                age = Integer.parseInt(binding.txtEditAge.getText().toString());
-                height = Integer.parseInt(binding.txtEditHeight.getText().toString());
-                weight = Integer.parseInt(binding.txtEditWeight.getText().toString());
-                usermodel = new User(email, username, name, age, height, weight, img);
+                usermodel.put("img", img);
                 storage = FirebaseStorage.getInstance();
                 storageReference = storage.getReference();
-                if(filePath != null)
-                {
+                if (filePath != null) {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext());
                     progressDialog.setTitle("Uploading...");
                     progressDialog.show();
@@ -124,8 +142,8 @@ public class EditProfileFragment extends Fragment {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     progressDialog.dismiss();
                                     Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
-                                    mDatabase.child("user").child(user.getUid()).setValue(usermodel);
-                                    Log.w("UPDATE", "Update Success " + user.getEmail());
+                                    mDatabase.child("user").child(user.getUid()).updateChildren(usermodel);
+                                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
                                     Intent i = new Intent(getContext(), UserMainActivity.class);
                                     startActivity(i);
                                 }
@@ -134,20 +152,20 @@ public class EditProfileFragment extends Fragment {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                             .getTotalByteCount());
-                                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
                                 }
                             });
-                }else{
-                    mDatabase.child("user").child(user.getUid()).setValue(usermodel);
-                    Log.w("UPDATE", "Update Success " + user.getEmail());
+                } else {
+                    mDatabase.child("user").child(user.getUid()).updateChildren(usermodel);
+                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
                     Intent i = new Intent(getContext(), UserMainActivity.class);
                     startActivity(i);
                 }
@@ -159,18 +177,19 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 binding.imageView4.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Map<String, String> convertWithGuava(String mapAsString) {
+        return Splitter.on(',').withKeyValueSeparator('=').split(mapAsString);
     }
 }
