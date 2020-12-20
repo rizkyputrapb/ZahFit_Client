@@ -143,7 +143,7 @@ public class EditProfileFragment extends Fragment {
                                     progressDialog.dismiss();
                                     Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
                                     mDatabase.child("user").child(user.getUid()).updateChildren(usermodel);
-                                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
+//                                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
                                     Intent i = new Intent(getContext(), UserMainActivity.class);
                                     startActivity(i);
                                 }
@@ -165,7 +165,7 @@ public class EditProfileFragment extends Fragment {
                             });
                 } else {
                     mDatabase.child("user").child(user.getUid()).updateChildren(usermodel);
-                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
+//                    Log.w("UPDATE", "Update Success " + convertWithGuava("email"));
                     Intent i = new Intent(getContext(), UserMainActivity.class);
                     startActivity(i);
                 }
