@@ -118,14 +118,17 @@ public class EditProfileFragment extends Fragment {
                 if (!username.isEmpty()) {
                     usermodel.put("username", username);
                 }
+
+                // age, weight, height must be integer or long
+
                 if (!binding.txtEditAge.getText().toString().isEmpty()) {
-                    usermodel.put("age", binding.txtEditAge.getText().toString());
+                    usermodel.put("age", Long.parseLong(binding.txtEditAge.getText().toString()));
                 }
                 if (!binding.txtEditWeight.getText().toString().isEmpty()) {
-                    usermodel.put("weight", binding.txtEditWeight.getText().toString());
+                    usermodel.put("weight", Long.parseLong(binding.txtEditWeight.getText().toString()));
                 }
                 if (!binding.txtEditHeight.getText().toString().isEmpty()) {
-                    usermodel.put("height", binding.txtEditHeight.getText().toString());
+                    usermodel.put("height", Long.parseLong(binding.txtEditHeight.getText().toString()));
                 }
                 img = user.getUid() + ".png";
                 usermodel.put("img", img);
