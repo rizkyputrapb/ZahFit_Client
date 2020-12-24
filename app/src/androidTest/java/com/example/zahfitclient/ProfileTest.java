@@ -1,4 +1,5 @@
 package com.example.zahfitclient;
 
-public class SettingsTest {
+public class ProfileTest {
+
 }

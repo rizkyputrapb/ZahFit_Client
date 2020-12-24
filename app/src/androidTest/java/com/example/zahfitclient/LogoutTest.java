@@ -34,21 +34,21 @@ public class LogoutTest {
 //    Test Passed
     @Test
     public void LogoutTest() throws InterruptedException {
-        onView(withText(startsWith("Login"))).perform(click());
-        onView(withId(R.id.txt_Email)).perform(click());
-        Thread.sleep(500);
-        onView(withId(R.id.txt_Email)).perform(typeText("yz@gmail.com"));
-        Thread.sleep(500);
-        onView(withId(R.id.txt_Password)).perform(click());
-        Thread.sleep(500);
-        onView(withId(R.id.txt_Password)).perform(typeText("101010"));
-        closeSoftKeyboard();
-        onView(withText(startsWith("Login"))).perform(click());
-        Thread.sleep(3000);
+//        onView(withText(startsWith("Login"))).perform(click());
+//        onView(withId(R.id.txt_Email)).perform(click());
+//        Thread.sleep(500);
+//        onView(withId(R.id.txt_Email)).perform(typeText("yazeedarifin@gmail.com"));
+//        Thread.sleep(500);
+//        onView(withId(R.id.txt_Password)).perform(click());
+//        Thread.sleep(500);
+//        onView(withId(R.id.txt_Password)).perform(typeText("101010"));
+//        closeSoftKeyboard();
+//        onView(withText(startsWith("Login"))).perform(click());
+//        Thread.sleep(3000);
         onView(withContentDescription("Open navigation drawer")).perform(click());
-        Thread.sleep(500);
+//        Thread.sleep(500);
         onView(withText(startsWith("Settings"))).perform(click());
-        Thread.sleep(500);
+//        Thread.sleep(500);
         onView(withText(startsWith("Log Out"))).perform(click());
         onView(withId(R.id.btnLogin)).check(matches(withText(containsString("Login"))));
         onView(withId(R.id.btnRegister)).check(matches(withText(containsString("Register"))));
